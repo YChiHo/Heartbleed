@@ -128,8 +128,9 @@ def main():
         if db_bool == True:
             db = pymysql.connect(host='localhost', port=3306, user='root', passwd='root', db='weakness', charset='utf8')
             cur = db.cursor()
-            cur.execute("USE hostname")
-            cur.execute("INSERT INTO hostname(Name, IP, PORT) values ('%s', '%s', '%s')" % ("Heartbleed", args[0], opts.port))
+            hostname = args[0]
+            table = "INSERT INTO " + hostname + "(Name, IP, PORT) values ('%s', '%s', '%s')" % ("Heartbleed", args[0], opts.port)
+            cur.execute(table)
             cur.connection.commit()
 
 if __name__ == '__main__':
